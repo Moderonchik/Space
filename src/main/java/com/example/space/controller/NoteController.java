@@ -4,9 +4,6 @@ import com.example.space.model.Note;
 import com.example.space.repository.NoteRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,13 +27,13 @@ public class NoteController {
     }
 
     @GetMapping("{id}")
-    public Note getBYId(@PathVariable("id") Note note){
+    public Note getById(@PathVariable("id") Note note){
         return note;
     }
 
     @GetMapping("/search/{text}")
-    public Note getByText(@PathVariable("text") String text){
-        return repo.getByText(text);
+    public List<Note> getByText(@PathVariable("text") String text){
+        return repo.findAllByText(text);
     }
 
     @DeleteMapping("{id}")
