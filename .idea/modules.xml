@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/Downloads/space/space.iml" filepath="$USER_HOME$/Downloads/space/space.iml" />
+      <module fileurl="file://$PROJECT_DIR$/space.iml" filepath="$PROJECT_DIR$/space.iml" />
     </modules>
   </component>
 </project>
