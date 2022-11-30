@@ -2,6 +2,7 @@ package com.example.space.controller;
 
 import com.example.space.model.Contact;
 import com.example.space.repository.ContactRepo;
+import com.example.space.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -13,52 +14,50 @@ import java.util.List;
 @RequestMapping("contact")
 @RequiredArgsConstructor
 public class ContactController {
-    private final ContactRepo repo;
+    private final ContactService service;
 
     @PostMapping
     public Contact create(@RequestBody Contact contact){
-        contact.setCreated(LocalDateTime.now());
-        return repo.save(contact);
+        return service.create(contact);
     }
 
     @GetMapping
     public List<Contact> list(){
-        return repo.findAll();
+        return service.list();
     }
 
     @GetMapping("{id}")
     public Contact getById(@PathVariable("id") Contact contact){
-        return contact;
+        return service.getById(contact);
     }
 
     @GetMapping("/search/name/{name}")
     public List<Contact> getByName(@PathVariable("name") String name){
-        return repo.findAllByName(name);
+        return service.getByName(name);
     }
 
     @GetMapping("/search/surname/{surname}")
     public List<Contact> getBySurname(@PathVariable("surname") String surname){
-        return repo.findAllBySurname(surname);
+        return service.getBySurname(surname);
     }
 
     @GetMapping("/search/phone/{phone}")
     public List<Contact> getByPhone(@PathVariable("phone") String phone){
-        return repo.findAllByPhone(phone);
+        return service.getByPhone(phone);
     }
 
     @GetMapping("/search/email/{email}")
     public List<Contact> getByEmail(@PathVariable("email") String email){
-        return repo.findAllByEmail(email);
+        return service.getByEmail(email);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Contact contact){
-        repo.delete(contact);
+        service.delete(contact);
     }
 
     @PutMapping("{id}")
     public Contact update(@PathVariable("id") Contact contact,@RequestBody Contact newContact){
-        BeanUtils.copyProperties(newContact, contact, "id","created");
-        return repo.save(contact);
+        return service.update(contact, newContact);
     }
 }
